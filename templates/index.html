@@ -1,1 +1,380 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SkyPredict | Flight Price Intelligence</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar">
+
+        <div class="brand">
+            <div class="brand-icon">✈</div>
+            <div>
+                <h2>SkyPredict</h2>
+                <span>FLIGHT INTELLIGENCE</span>
+            </div>
+        </div>
+
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            AI Prediction System
+        </div>
+
+    </nav>
+
+
+    <!-- Hero section -->
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <span class="hero-label">
+                SMART TRAVEL 
+                
+            </span>
+
+            <h1>
+                Discover Your Journey.<br>
+                <span>Predict Your Price.</span>
+            </h1>
+
+            <p>
+               
+                 Intelligent Flight Fare Estimation for Smarter Travel Decisions
+
+            </p>
+
+        </div>
+
+        <div class="hero-art">
+            <div class="orbit"></div>
+            <div class="plane">✈</div>
+            <div class="hero-circle">AI</div>
+        </div>
+
+    </section>
+
+
+    <!-- Main content -->
+    <main class="dashboard">
+
+        <section class="form-card">
+
+            <div class="card-heading">
+
+                <div>
+                    <span class="small-label">TRAVEL PLANNER</span>
+                    <h2>Enter Flight Details</h2>
+                    <p>
+                        Complete the information to estimate
+                        your ticket price.
+                    </p>
+                </div>
+
+                <div class="heading-icon">✈</div>
+
+            </div>
+
+
+            <form action="/predict" method="POST">
+
+                <!-- Route information -->
+                <div class="form-section-title">
+                    <span>01</span>
+                    Journey Information
+                </div>
+
+                <div class="route-grid">
+
+                    <div class="input-group">
+                        <label>From City</label>
+
+                        <select name="source_city" required>
+                            <option value="">Select Source</option>
+                            <option>Delhi</option>
+                            <option>Mumbai</option>
+                            <option>Bangalore</option>
+                            <option>Chennai</option>
+                            <option>Hyderabad</option>
+                            <option>Kolkata</option>
+                            
+                        </select>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>To City</label>
+
+                        <select name="destination_city" required>
+                            <option value="">Select Destination</option>
+                            <option>Delhi</option>
+                            <option>Mumbai</option>
+                            <option>Bangalore</option>
+                            <option>Chennai</option>
+                            <option>Hyderabad</option>
+                            <option>Kolkata</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <!-- Airline information -->
+                <div class="form-section-title">
+                    <span>02</span>
+                    Airline Information
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Airline</label>
+
+                        <select name="airline" required>
+                            <option value="">Select Airline</option>
+                            <option>AirAsia</option>
+                            <option>Air India</option>
+                            <option>GO_FIRST</option>
+                            <option>Indigo</option>
+                            <option>SpiceJet</option>
+                            <option>Vistara</option>
+                        </select>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Flight Number</label>
+
+                        <input type="text"
+                               name="flight"
+                               placeholder="Example: UK-995"
+                               required>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Flight Class</label>
+
+                        <select name="class" required>
+                            <option value="">Select Class</option>
+                            <option>Economy</option>
+                            <option>Business</option>
+                        </select>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Number of Stops</label>
+
+                        <select name="stops" required>
+                            <option value="">Select Stops</option>
+                            <option value="zero">Non-stop</option>
+                            <option value="one">One Stop</option>
+                            <option value="two_or_more">Two or More Stops</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <!-- Timing -->
+                <div class="form-section-title">
+                    <span>03</span>
+                    Flight Schedule
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="input-group">
+                        <label>Departure Time</label>
+
+                        <select name="departure_time" required>
+                            <option value="">Select Departure</option>
+                            <option>Early_Morning</option>
+                            <option>Morning</option>
+                            <option>Afternoon</option>
+                            <option>Evening</option>
+                            <option>Night</option>
+                            <option>Late_Night</option>
+                        </select>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Arrival Time</label>
+
+                        <select name="arrival_time" required>
+                            <option value="">Select Arrival</option>
+                            <option>Early_Morning</option>
+                            <option>Morning</option>
+                            <option>Afternoon</option>
+                            <option>Evening</option>
+                            <option>Night</option>
+                            <option>Late_Night</option>
+                        </select>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Flight Duration (Hours)</label>
+
+                        <input type="number"
+                               name="duration"
+                               step="0.1"
+                               min="0.1"
+                               placeholder="Example: 2.5"
+                               required>
+                    </div>
+
+
+                    <div class="input-group">
+                        <label>Days Left Before Departure</label>
+
+                        <input type="number"
+                               name="days_left"
+                               min="1"
+                               max="49"
+                               placeholder="Example: 15"
+                               required>
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+                <div class="button-area">
+
+                    <button type="reset" class="reset-btn">
+                        Clear Details
+                    </button>
+
+                    <button type="submit" class="predict-btn">
+                        Predict Flight Price
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- Prediction Result -->
+        {% if prediction is not none %}
+
+        <section class="result-card">
+
+            <div class="result-top">
+                <span class="result-tag">PREDICTION SUCCESSFUL</span>
+                <span class="result-plane">✈</span>
+            </div>
+
+            <p class="result-title">
+                Estimated Flight Ticket Price
+            </p>
+
+            <h2>₹ {{ "{:,.2f}".format(prediction) }}</h2>
+
+            <div class="route-result">
+
+                <div>
+                    <span>FROM</span>
+                    <h3>{{ source }}</h3>
+                </div>
+
+                <div class="route-line">✈ ───── ✈</div>
+
+                <div>
+                    <span>TO</span>
+                    <h3>{{ destination }}</h3>
+                </div>
+
+            </div>
+
+            <div class="result-footer">
+                Airline: <strong>{{ airline }}</strong>
+            </div>
+
+            <p class="disclaimer">
+                This is an estimated price generated by
+                a machine learning model, not a live ticket quote.
+            </p>
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- Error message -->
+        {% if error %}
+
+        <div class="error-box">
+            <strong>Prediction Error</strong>
+            <p>{{ error }}</p>
+        </div>
+
+        {% endif %}
+
+
+        <!-- Information cards -->
+        <section class="info-grid">
+
+            <div class="info-card">
+                <div class="info-icon">✦</div>
+                <h3>AI Powered</h3>
+                <p>Linear Regression prediction model.</p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">⌁</div>
+                <h3>Smart Analysis</h3>
+                <p>Uses airline and journey information.</p>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">₹</div>
+                <h3>Price Estimation</h3>
+                <p>Estimated ticket price in Indian rupees.</p>
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="footer-brand">
+            ✈ SkyPredict
+        </div>
+
+        <p>
+            Flight Price Prediction System |
+            Powered by Machine Learning
+        </p>
+
+        <span>© 2026 SkyPredict. Academic Project.</span>
+
+    </footer>
+
+</div>
+
+</body>
+</html>
+
